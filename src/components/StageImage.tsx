@@ -66,6 +66,8 @@ export const StageImage: React.FC<{ stage: ParasiteStage }> = ({ stage }) => {
   const allImages = [...customImages, ...validImages];
   const safeIndex = (currentIndex >= allImages.length && allImages.length > 0) ? allImages.length - 1 : currentIndex;
 
+  console.log("Rendering StageImage:", stage.name, "Images:", allImages, "Current safeIndex:", safeIndex);
+
   return (
     <div className="flex flex-col gap-4 md:gap-5 p-6 md:p-8 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-md transition-shadow">
       <div className="flex flex-row items-center justify-between">
@@ -105,14 +107,16 @@ export const StageImage: React.FC<{ stage: ParasiteStage }> = ({ stage }) => {
                      alt={`${stage.name} - view ${safeIndex + 1}`}
                      className="absolute inset-0 w-full h-full object-contain"
                      loading="lazy"
-                     onError={() => {
-                       if (safeIndex >= customImages.length) {
-                          const originalUrl = allImages[safeIndex];
-                          const originalIndex = stage.imageUrls!.indexOf(originalUrl);
-                          if (originalIndex !== -1) {
-                              handleImageError(originalIndex);
-                          }
-                       }
+                     onError={(e) => {
+                       console.warn("Image load error for", allImages[safeIndex], e);
+                       // We temporarily disabled the aggressive filtering:
+                       // if (safeIndex >= customImages.length) {
+                       //    const originalUrl = allImages[safeIndex];
+                       //    const originalIndex = stage.imageUrls!.indexOf(originalUrl);
+                       //    if (originalIndex !== -1) {
+                       //        handleImageError(originalIndex);
+                       //    }
+                       // }
                      }}
                    />
                  </AnimatePresence>

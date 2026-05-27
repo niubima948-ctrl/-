@@ -1,0 +1,6 @@
+{
+  "name": "浙江省医学寄生虫学考前识图复习系统",
+  "description": "医学寄生虫学实验考试专属复习平台，覆盖教学大纲要求掌握的所有原虫、吸虫、绦虫、线虫及节肢动物的高清镜下形态，附带历年高频考点。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

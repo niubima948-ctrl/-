@@ -5,6 +5,32 @@ import { motion, AnimatePresence } from 'motion/react';
 
 type ImageTab = 'original' | 'custom';
 
+const renderList = (text: string, isKeyPoints: boolean) => {
+  if (!text) return null;
+  const lines = text.split('\n');
+  return (
+    <div className="space-y-2 text-left">
+      {lines.map((line, idx) => {
+        const match = line.match(/^(\d+\.)\s*(.*)$/);
+        if (match) {
+          const [, num, content] = match;
+          return (
+            <div key={idx} className="flex items-start gap-1.5 text-sm md:text-base leading-relaxed">
+              <span className={`font-semibold flex-shrink-0 ${isKeyPoints ? 'text-amber-900' : 'text-blue-900'}`}>{num}</span>
+              <span className={isKeyPoints ? 'text-amber-900 font-medium' : 'text-gray-700'}>{content}</span>
+            </div>
+          );
+        }
+        return (
+          <div key={idx} className={`text-sm md:text-base leading-relaxed ${isKeyPoints ? 'text-amber-900 font-medium' : 'text-gray-700'}`}>
+            {line}
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
 export const StageImage: React.FC<{ stage: ParasiteStage }> = ({ stage }) => {
   const [failedImages, setFailedImages] = useState<Set<number>>(new Set());
   const [customImages, setCustomImages] = useState<string[]>([]);
@@ -235,11 +261,11 @@ export const StageImage: React.FC<{ stage: ParasiteStage }> = ({ stage }) => {
       <div className="space-y-4 md:space-y-5 mt-2">
         <div className="bg-blue-50/50 p-5 md:p-6 rounded-xl">
            <h5 className="text-base font-bold text-blue-800 mb-2">🔍 镜下形态：</h5>
-           <p className="text-sm md:text-base text-gray-700 leading-relaxed">{stage.morphology}</p>
+           {renderList(stage.morphology, false)}
         </div>
         <div className="bg-amber-50 p-5 md:p-6 rounded-xl border border-amber-100/50">
            <h5 className="text-base font-bold text-amber-800 mb-2">🚨 {stage.keyPointTitle || '易混辨析'}：</h5>
-           <p className="text-sm md:text-base text-amber-900 leading-relaxed font-medium">{stage.keyPoints}</p>
+           {renderList(stage.keyPoints, true)}
         </div>
       </div>
 

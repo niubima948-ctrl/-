@@ -187,7 +187,7 @@ export const parasiteData: Parasite[] = [
         "name": "11. 恶性疟原虫环状体",
         "searchTerm": "Plasmodium falciparum ring",
         "imageUrls": [
-          "/custom_images/ybnex006.jpg",
+          "/custom_images/ybnex006_fixed.jpg",
           "/custom_images/恶心虐2.jpg",
           "/custom_images/恶性疟原虫.jpg",
           "/custom_images/恶性疟原虫环状体.jpg"

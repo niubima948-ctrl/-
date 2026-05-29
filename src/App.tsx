@@ -24,10 +24,10 @@ export default function App() {
     <div className="min-h-screen bg-gray-50 font-sans text-gray-900 selection:bg-teal-200">
       {/* Header */}
       <header className="sticky top-0 z-40 w-full backdrop-blur-md bg-white/80 border-b border-gray-200 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-12 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Microscope className="w-8 h-8 text-teal-600" />
-            <h1 className="text-xl font-bold tracking-tight text-gray-900 hidden sm:block">
+            <Microscope className="w-6 h-6 text-teal-600" />
+            <h1 className="text-lg font-bold tracking-tight text-gray-900 hidden sm:block">
               医学寄生虫学<span className="text-teal-600">实验识图系统</span>
             </h1>
           </div>
@@ -41,7 +41,7 @@ export default function App() {
                   placeholder="搜索寄生虫名、学名..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-full leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-teal-500 focus:border-teal-500 sm:text-sm transition-all shadow-inner"
+                  className="block w-full pl-10 pr-3 py-1.5 border border-gray-300 rounded-full leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-teal-500 focus:border-teal-500 sm:text-xs transition-all shadow-inner"
                 />
              </div>
           </div>
@@ -49,7 +49,7 @@ export default function App() {
         
         {/* Mobile / Horizontal Category Nav */}
         <div className="border-t border-gray-100 bg-white/50 overflow-x-auto hide-scrollbar">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex space-x-2">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1 flex space-x-2">
               {categories.map((cat) => (
                 <button
                   key={cat}

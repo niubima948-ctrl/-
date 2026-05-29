@@ -11,6 +11,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_1",
         "name": "1. 溶组织内阿米巴包囊",
+        "englishName": "Entamoeba histolytica Schaudinn cyst",
         "searchTerm": "Entamoeba histolytica cyst",
         "imageUrls": [
           "/custom_images/包囊.png",
@@ -25,6 +26,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_2",
         "name": "2. 溶组织内阿米巴滋养体",
+        "englishName": "Entamoeba histolytica Schaudinn trophozoite",
         "searchTerm": "Entamoeba histolytica trophozoite",
         "imageUrls": [
           "/custom_images/溶组织内阿米巴滋养体 (2).jpg",
@@ -48,6 +50,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_3",
         "name": "3. 阴道毛滴虫滋养体",
+        "englishName": "Trichomonas vaginalis Donne trophozoite",
         "searchTerm": "Trichomonas vaginalis trophozoite",
         "imageUrls": [
           "/custom_images/阴道毛滴虫滋养体1.jpg",
@@ -69,6 +72,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_4",
         "name": "4. 蓝氏贾第鞭毛虫滋养体",
+        "englishName": "Giardia lamblia trophozoite",
         "searchTerm": "Giardia lamblia trophozoite",
         "imageUrls": [
           "/custom_images/19_1194_28402d5bc52392e.jpg",
@@ -82,6 +86,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_5",
         "name": "5. 蓝氏贾第鞭毛虫包囊",
+        "englishName": "Giardia lamblia cyst",
         "searchTerm": "Giardia lamblia cyst",
         "imageUrls": [
           "/custom_images/蓝氏贾第鞭毛虫包囊.jpg"
@@ -101,6 +106,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_6",
         "name": "6. 杜氏利什曼原虫无鞭毛体",
+        "englishName": "Leishmania donovani amastigote",
         "searchTerm": "Leishmania donovani amastigote",
         "imageUrls": [
           "/custom_images/杜-无鞭毛体.jpg",
@@ -113,6 +119,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_7",
         "name": "7. 杜氏利什曼原虫前鞭毛体",
+        "englishName": "Leishmania donovani promastigote",
         "searchTerm": "Leishmania donovani promastigote",
         "imageUrls": [
           "/custom_images/杜氏利什曼原虫前鞭毛体1.jpg",
@@ -133,6 +140,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_8",
         "name": "8. 间日疟原虫环状体",
+        "englishName": "Plasmodium vivax ring form",
         "searchTerm": "Plasmodium vivax ring",
         "imageUrls": [
           "/custom_images/间日疟原虫环状体1.jpg",
@@ -146,6 +154,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_9",
         "name": "9. 间日疟原虫滋养体",
+        "englishName": "Plasmodium vivax trophozoite",
         "searchTerm": "Plasmodium vivax trophozoite",
         "imageUrls": [
           "/custom_images/外周血中的间日疟原虫滋养体、裂殖体及孢子体（吉氏染色）.jpg",
@@ -161,6 +170,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_10",
         "name": "10. 间日疟原虫成熟裂殖体",
+        "englishName": "Plasmodium vivax mature schizont",
         "searchTerm": "Plasmodium vivax schizont",
         "imageUrls": [
           "/custom_images/外周血中的间日疟原虫裂殖体及孢子体（吉氏染色）.jpg",
@@ -185,6 +195,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_11",
         "name": "11. 恶性疟原虫环状体",
+        "englishName": "Plasmodium falciparum ring form",
         "searchTerm": "Plasmodium falciparum ring",
         "imageUrls": [
           "/custom_images/ybnex006_fixed.jpg",
@@ -198,6 +209,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_12",
         "name": "12. 恶性疟原虫雌雄配子体",
+        "englishName": "Plasmodium falciparum gametocyte",
         "searchTerm": "Plasmodium falciparum gametocyte",
         "imageUrls": [
           "/custom_images/外周血中的恶性疟原虫配子体(吉氏染色).jpg",
@@ -223,6 +235,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_13",
         "name": "13. 肝吸虫虫卵",
+        "englishName": "Clonorchis sinensis egg",
         "searchTerm": "Clonorchis sinensis egg",
         "imageUrls": [
           "/custom_images/华支睾吸虫虫卵1.jpg",
@@ -236,6 +249,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_14",
         "name": "14. 肝吸虫成虫",
+        "englishName": "Clonorchis sinensis adult",
         "searchTerm": "Clonorchis sinensis adult",
         "imageUrls": [
           "/custom_images/19_1194_4fd74aab5a0d7f3.jpg",
@@ -259,6 +273,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_15",
         "name": "15. 肺吸虫虫卵",
+        "englishName": "Paragonimus westermani egg",
         "searchTerm": "Paragonimus westermani egg",
         "imageUrls": [
           "/custom_images/20.肺吸虫卵.jpg",
@@ -274,6 +289,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_16",
         "name": "16. 肺吸虫成虫",
+        "englishName": "Paragonimus westermani adult",
         "searchTerm": "Paragonimus adult",
         "imageUrls": [
           "/custom_images/卫氏并殖吸虫.jpg",
@@ -287,6 +303,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_17",
         "name": "17. 肺吸虫囊蚴",
+        "englishName": "Paragonimus westermani metacercaria",
         "searchTerm": "Paragonimus metacercaria",
         "imageUrls": [
           "/custom_images/卫氏并殖吸虫囊蚴1.jpg",
@@ -307,9 +324,9 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_18",
         "name": "18. 日本血吸虫虫卵",
+        "englishName": "Schistosoma japonicum egg",
         "searchTerm": "Schistosoma japonicum egg",
         "imageUrls": [
-          "/custom_images/DSC00869.JPG",
           "/custom_images/日本血吸虫虫卵1.jpg",
           "/custom_images/日本血吸虫虫卵2.jpg",
           "/custom_images/日本血吸虫虫卵3.jpg",
@@ -322,9 +339,9 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_19",
         "name": "19. 日本血吸虫成虫",
+        "englishName": "Schistosoma japonicum adult",
         "searchTerm": "Schistosoma japonicum adult male female",
         "imageUrls": [
-          "/custom_images/DSC00874.JPG",
           "/custom_images/日本血吸虫.jpg",
           "/custom_images/日本血吸虫雌雄合抱体1.jpg",
           "/custom_images/日本血吸虫雌雄合抱体2.jpg",
@@ -337,6 +354,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_20",
         "name": "20. 日本血吸虫尾蚴",
+        "englishName": "Schistosoma japonicum cercaria",
         "searchTerm": "Schistosoma cercaria",
         "imageUrls": [
           "/custom_images/040.jpg",
@@ -358,6 +376,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_21",
         "name": "21. 姜片虫成虫",
+        "englishName": "Fasciolopsis buski adult",
         "searchTerm": "Fasciolopsis buski adult",
         "imageUrls": [
           "/custom_images/布氏姜片吸虫.jpg",
@@ -369,6 +388,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_22",
         "name": "22. 姜片虫虫卵",
+        "englishName": "Fasciolopsis buski egg",
         "searchTerm": "Fasciolopsis buski egg",
         "imageUrls": [
           "/custom_images/姜片卵-2.jpg",
@@ -390,6 +410,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_23",
         "name": "23. 带绦虫虫卵",
+        "englishName": "Taenia egg",
         "searchTerm": "Taenia egg",
         "imageUrls": [
           "/custom_images/044.jpg",
@@ -415,12 +436,13 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_24",
         "name": "24. 猪带绦虫头节",
+        "englishName": "Taenia solium scolex",
         "searchTerm": "Taenia solium scolex",
         "imageUrls": [
           "/custom_images/045.jpg",
-          "/custom_images/DSC00884.JPG",
           "/custom_images/猪带绦虫幼虫和妊娠节片.jpg",
-          "/custom_images/链状带绦虫成虫头节.jpg"
+          "/custom_images/链状带绦虫成虫头节.jpg",
+          "/custom_images/DSC00869.JPG"
         ],
         "morphology": "头部呈小圆球形状。其最宽处有4个对称的圆形吸盘。头节的顶点具有向外突出的“顶突”，其上整齐交叠着两圈角质小钩（25~50个状如皇冠）。",
         "keyPoints": "不仅具四个圆吸盘，头顶更配备有具两圈小弯刺的凸起物（“顶突及顶刺钩”），形如小皇冠。"
@@ -428,6 +450,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_25",
         "name": "25. 猪带绦虫成节",
+        "englishName": "Taenia solium mature proglottid",
         "searchTerm": "Taenia solium proglottid",
         "imageUrls": [
           "/custom_images/链状带绦虫成虫.jpg",
@@ -439,6 +462,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_26",
         "name": "26. 猪带绦虫孕节",
+        "englishName": "Taenia solium gravid proglottid",
         "searchTerm": "Taenia solium gravid proglottid",
         "imageUrls": [
           "/custom_images/猪绦孕-1.jpg",
@@ -450,6 +474,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_27",
         "name": "27. 猪带绦虫囊尾蚴",
+        "englishName": "Taenia solium cysticercus",
         "searchTerm": "Taenia solium cysticercus",
         "imageUrls": [
           "/custom_images/链状带绦虫囊尾蚴 3.jpg",
@@ -473,6 +498,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_28",
         "name": "28. 牛带绦虫头节",
+        "englishName": "Taenia saginata scolex",
         "searchTerm": "Taenia saginata scolex",
         "imageUrls": [
           "/custom_images/046.jpg",
@@ -485,6 +511,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_29",
         "name": "29. 牛带绦虫成节",
+        "englishName": "Taenia saginata mature proglottid",
         "searchTerm": "Taenia saginata proglottid",
         "imageUrls": [
           "/custom_images/肥胖带绦虫成虫.jpg",
@@ -496,6 +523,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_30",
         "name": "30. 牛带绦虫孕节",
+        "englishName": "Taenia saginata gravid proglottid",
         "searchTerm": "Taenia saginata gravid proglottid",
         "imageUrls": [
           "/custom_images/肥胖带绦虫成虫孕节1.jpg",
@@ -508,6 +536,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_31",
         "name": "31. 牛带绦虫囊尾蚴",
+        "englishName": "Taenia saginata cysticercus",
         "searchTerm": "Taenia saginata cysticercus",
         "imageUrls": [],
         "morphology": "与猪囊尾蚴近似大小，呈椭圆形。同样囊膜下陷入了一个头节，但是此未成熟发育内卷的头节也是完全缺失顶突和小钩武装，仅仅只能观察得到4个微小吸盘圆口形状。",
@@ -525,6 +554,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_32",
         "name": "32. 受精蛔虫卵",
+        "englishName": "Fertilized Ascaris egg",
         "searchTerm": "Ascaris lumbricoides fertilized egg",
         "imageUrls": [
           "/custom_images/DSC00627.JPG",
@@ -540,6 +570,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_33",
         "name": "33. 未受精蛔虫卵",
+        "englishName": "Unfertilized Ascaris egg",
         "searchTerm": "Ascaris lumbricoides unfertilized egg",
         "imageUrls": [
           "/custom_images/未受精蛔虫卵1.jpg",
@@ -552,15 +583,19 @@ export const parasiteData: Parasite[] = [
       },
       {
         "id": "stage_34",
-        "name": "34. 脱蛋白质膜受精蛔虫卵",
+        "name": "34. 脱蛋白膜受精蛔虫卵",
+        "englishName": "Decorticated fertilized Ascaris egg",
         "searchTerm": "Ascaris decorticated egg",
-        "imageUrls": [],
+        "imageUrls": [
+          "/custom_images/DSC00621.JPG"
+        ],
         "morphology": "其形状、壳质的质感和囊膜及里面所有的完整形态细胞组织与特征内容完全跟基础的受精长相一致相同，唯独缺失或完全丧失包裹并在最表面的波纹黄粗糙蛋白层外衣膜。使整体变得显得无彩并呈现厚卵透明状。",
         "keyPoints": "剥脱去其波纹锯齿层之后的原受精卵态。外壁非常透净明滑或近无色光滑透状但其实含有厚坚外卵壳层。【极易误诊极像钩虫大空薄卵层，但其实要更具有壁厚度及内容不同实。】"
       },
       {
         "id": "stage_35",
         "name": "35. 蛔虫雄虫交合刺",
+        "englishName": "Ascaris male copulatory spicule",
         "searchTerm": "Ascaris spicule",
         "imageUrls": [
           "/custom_images/交合刺.jpg",
@@ -572,6 +607,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_36",
         "name": "36. 蛔虫唇瓣",
+        "englishName": "Ascaris lip",
         "searchTerm": "Ascaris lips",
         "imageUrls": [
           "/custom_images/似蚓蛔线虫唇瓣1.jpg",
@@ -592,6 +628,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_37",
         "name": "37. 钩虫卵",
+        "englishName": "Hookworm egg",
         "searchTerm": "Hookworm egg",
         "imageUrls": [
           "/custom_images/19_1194_38cd10a5f3dcf79.jpg",
@@ -618,11 +655,13 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_38",
         "name": "38. 十二指肠钩虫口囊",
+        "englishName": "Ancylostoma duodenale buccal capsule",
         "searchTerm": "Ancylostoma duodenale buccal",
         "imageUrls": [
           "/custom_images/19_1194_3a08ac904cc57b7.jpg",
           "/custom_images/十二指肠钩口线虫口囊.jpg",
-          "/custom_images/十二指肠钩口线虫和美洲板口线虫口囊.jpg"
+          "/custom_images/十二指肠钩口线虫和美洲板口线虫口囊.jpg",
+          "/custom_images/DSC00884.JPG"
         ],
         "morphology": "在其头的前端形成了一个极其深且具备十分大空间腹开口大广巨角质壳化坚底空囊深杯底状杯体构造。且最令人惧怕和作为界定区别的是主要发长在它前部前直壁腹沿处。生出了足足前后各有呈尖利无比长弯向内倒的尖大钩角牙深齿各有两对总4尖。",
         "keyPoints": "形长极其深刻粗具漏杯斗底的粗骨化杯口，但最作为识别本此物种判定金基准为前腹处缘拥有弯且钩长极锐“共2对且总4枚倒反弯长尖角类钩牙”。"
@@ -630,6 +669,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_40",
         "name": "40. 十二指肠钩虫雄虫交合伞",
+        "englishName": "Ancylostoma duodenale male copulatory bursa",
         "searchTerm": "Ancylostoma duodenale bursa",
         "imageUrls": [
           "/custom_images/十二指肠钩口线虫和美洲板口线虫交合伞.jpg"
@@ -649,6 +689,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_39",
         "name": "39. 美洲钩虫口囊",
+        "englishName": "Necator americanus buccal capsule",
         "searchTerm": "Necator americanus buccal",
         "imageUrls": [
           "/custom_images/19_1194_d54b6bf5cb8a306.jpg",
@@ -660,6 +701,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_41",
         "name": "41. 美洲钩虫雄虫交合伞",
+        "englishName": "Necator americanus male copulatory bursa",
         "searchTerm": "Necator americanus bursa",
         "imageUrls": [],
         "morphology": "雄虫交合伞与十二指肠钩虫类似，但背辐肋的结构有明显差异：背辐肋在基部极早期就分为两支，各自向远端延伸，末端分别再分为两小支。",
@@ -677,6 +719,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_42",
         "name": "42. 蛲虫卵",
+        "englishName": "Enterobius vermicularis egg",
         "searchTerm": "Enterobius vermicularis egg",
         "imageUrls": [
           "/custom_images/250px-Eggs_of_Enterobius_vermicularis_5229_lores.jpg",
@@ -693,6 +736,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_43",
         "name": "43. 蛲虫头顶部（咽管球）",
+        "englishName": "Enterobius vermicularis cephalic alae (pharyngeal bulb)",
         "searchTerm": "Enterobius vermicularis adult",
         "imageUrls": [
           "/custom_images/蛲虫成虫头部1.jpg",
@@ -713,6 +757,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_44",
         "name": "44. 鞭虫卵",
+        "englishName": "Trichuris trichiura egg",
         "searchTerm": "Trichuris trichiura egg",
         "imageUrls": [
           "/custom_images/DSC00651.JPG",
@@ -729,6 +774,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_45",
         "name": "45. 雌鞭虫成虫",
+        "englishName": "Female Trichuris trichiura adult",
         "searchTerm": "Trichuris trichiura female",
         "imageUrls": [
           "/custom_images/雌雄鞭虫.jpg",
@@ -742,6 +788,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_46",
         "name": "46. 雄鞭虫成虫",
+        "englishName": "Male Trichuris trichiura adult",
         "searchTerm": "Trichuris trichiura male",
         "imageUrls": [
           "/custom_images/19_1194_aeb45baa25dceda.jpg",
@@ -764,6 +811,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_47",
         "name": "47. 班氏微丝蚴",
+        "englishName": "Wuchereria bancrofti microfilaria",
         "searchTerm": "Wuchereria bancrofti microfilaria",
         "imageUrls": [
           "/custom_images/19_1194_9f9f2ea92650404.jpg",
@@ -785,6 +833,7 @@ export const parasiteData: Parasite[] = [
       {
         "id": "stage_48",
         "name": "48. 马来微丝蚴",
+        "englishName": "Brugia malayi microfilaria",
         "searchTerm": "Brugia malayi microfilaria",
         "imageUrls": [
           "/custom_images/19_1194_b1d3d609fc7d766.jpg",

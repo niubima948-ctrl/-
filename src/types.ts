@@ -1,6 +1,7 @@
 export interface ParasiteStage {
   id: string;
   name: string;
+  englishName: string;
   searchTerm: string;
   imageUrls: string[];
   morphology: string;

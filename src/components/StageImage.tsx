@@ -1,12 +1,16 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { ParasiteStage } from '../types';
-import { Loader2, ImageOff, Upload, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Loader2, ImageOff, Upload, X, ChevronLeft, ChevronRight, ZoomIn } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+
+type ImageTab = 'original' | 'custom';
 
 export const StageImage: React.FC<{ stage: ParasiteStage }> = ({ stage }) => {
   const [failedImages, setFailedImages] = useState<Set<number>>(new Set());
   const [customImages, setCustomImages] = useState<string[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [activeTab, setActiveTab] = useState<ImageTab>('original');
+  const [lightboxOpen, setLightboxOpen] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -37,7 +41,7 @@ export const StageImage: React.FC<{ stage: ParasiteStage }> = ({ stage }) => {
       const dataUrl = event.target?.result as string;
       const newImages = [...customImages, dataUrl];
       setCustomImages(newImages);
-      // Switch to the newly uploaded image immediately
+      setActiveTab('custom');
       setCurrentIndex(newImages.length - 1);
       try {
         localStorage.setItem('custom_image_' + stage.id, JSON.stringify(newImages));
@@ -46,7 +50,6 @@ export const StageImage: React.FC<{ stage: ParasiteStage }> = ({ stage }) => {
       }
     };
     reader.readAsDataURL(file);
-    // Reset input
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
@@ -55,7 +58,11 @@ export const StageImage: React.FC<{ stage: ParasiteStage }> = ({ stage }) => {
     newImages.splice(index, 1);
     setCustomImages(newImages);
     if (currentIndex >= index && currentIndex > 0) {
-        setCurrentIndex(prev => prev - 1);
+      setCurrentIndex(prev => prev - 1);
+    }
+    if (newImages.length === 0) {
+      setActiveTab('original');
+      setCurrentIndex(0);
     }
     try {
       localStorage.setItem('custom_image_' + stage.id, JSON.stringify(newImages));
@@ -63,19 +70,33 @@ export const StageImage: React.FC<{ stage: ParasiteStage }> = ({ stage }) => {
   };
 
   const validImages = stage.imageUrls?.filter((_, i) => !failedImages.has(i)) || [];
-  const allImages = [...customImages, ...validImages];
-  const safeIndex = (currentIndex >= allImages.length && allImages.length > 0) ? allImages.length - 1 : currentIndex;
+  const displayImages = activeTab === 'original' ? validImages : customImages;
+  const safeIndex = (currentIndex >= displayImages.length && displayImages.length > 0) ? displayImages.length - 1 : currentIndex;
+
+  const handleTabSwitch = (tab: ImageTab) => {
+    setActiveTab(tab);
+    setCurrentIndex(0);
+  };
+
+  const hasCustom = customImages.length > 0;
 
   return (
     <div className="flex flex-col gap-4 md:gap-5 p-6 md:p-8 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-md transition-shadow">
-      <div className="flex flex-row items-center justify-between">
-        <h4 className="text-xl font-semibold text-teal-800 flex items-center gap-3">
-          <span className="w-2.5 h-2.5 rounded-full bg-teal-500"></span>
-          {stage.name}
-        </h4>
+      <div className="flex flex-row items-start justify-between gap-4">
+        <div className="flex flex-col gap-1 min-w-0">
+          <h4 className="text-xl font-semibold text-teal-800 flex items-center gap-3">
+            <span className="w-2.5 h-2.5 rounded-full bg-teal-500 flex-shrink-0"></span>
+            <span className="break-words">{stage.name}</span>
+          </h4>
+          {stage.englishName && (
+            <span className="text-sm font-normal text-gray-500 pl-[22px] italic break-words leading-tight">
+              {stage.englishName}
+            </span>
+          )}
+        </div>
         <button 
           onClick={() => fileInputRef.current?.click()}
-          className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-teal-700 bg-teal-50 hover:bg-teal-100 rounded-lg transition-colors"
+          className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-teal-700 bg-teal-50 hover:bg-teal-100 rounded-lg transition-colors flex-shrink-0"
         >
           <Upload className="w-4 h-4" />
           <span className="hidden sm:inline">上传自定义图片</span>
@@ -90,56 +111,98 @@ export const StageImage: React.FC<{ stage: ParasiteStage }> = ({ stage }) => {
         />
       </div>
 
+      {/* Tab switcher - only show when custom images exist */}
+      {hasCustom && (
+        <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1">
+          <button
+            onClick={() => handleTabSwitch('original')}
+            className={`flex-1 flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
+              activeTab === 'original'
+                ? 'bg-white text-teal-700 shadow-sm'
+                : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            📚 标准图片
+            {validImages.length > 0 && (
+              <span className={`text-xs px-1.5 py-0.5 rounded-full ${
+                activeTab === 'original' ? 'bg-teal-100 text-teal-700' : 'bg-gray-200 text-gray-500'
+              }`}>
+                {validImages.length}
+              </span>
+            )}
+          </button>
+          <button
+            onClick={() => handleTabSwitch('custom')}
+            className={`flex-1 flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
+              activeTab === 'custom'
+                ? 'bg-white text-orange-600 shadow-sm'
+                : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            📷 我的图片
+            <span className={`text-xs px-1.5 py-0.5 rounded-full ${
+              activeTab === 'custom' ? 'bg-orange-100 text-orange-600' : 'bg-gray-200 text-gray-500'
+            }`}>
+              {customImages.length}
+            </span>
+          </button>
+        </div>
+      )}
+
       <div className="w-full h-80 md:h-[400px] lg:h-[450px] bg-gray-50 rounded-lg overflow-hidden relative flex flex-row items-center justify-center group flex-shrink-0 border border-gray-100 p-2 gap-2">
-        {allImages.length > 0 ? (
+        {displayImages.length > 0 ? (
           <>
-             <div className="w-full h-full bg-black/5 rounded flex items-center justify-center overflow-hidden relative group/item">
+             <div className="w-full h-full bg-black/5 rounded flex items-center justify-center overflow-hidden relative group/item cursor-zoom-in" onClick={() => setLightboxOpen(true)}>
                  <AnimatePresence mode="popLayout">
                    <motion.img
-                     key={safeIndex}
+                     key={`${activeTab}-${safeIndex}`}
                      initial={{ opacity: 0, scale: 0.98 }}
                      animate={{ opacity: 1, scale: 1 }}
                      exit={{ opacity: 0, scale: 1.02 }}
                      transition={{ duration: 0.15, ease: 'easeInOut' }}
-                     src={allImages[safeIndex]}
-                     alt={`${stage.name} - view ${safeIndex + 1}`}
+                     src={displayImages[safeIndex]}
+                     alt={`${stage.name} - ${activeTab === 'custom' ? '自定义' : '标准'} ${safeIndex + 1}`}
                      className="absolute inset-0 w-full h-full object-contain"
                      loading="lazy"
                      onError={(e) => {
-                        console.warn("Failed to load image:", allImages[safeIndex], e);
-                        // We do not eagerly remove images anymore, so the user can see if an image is missing
+                        console.warn("Failed to load image:", displayImages[safeIndex], e);
                      }}
                    />
                  </AnimatePresence>
-                 {safeIndex < customImages.length && (
+                 {/* Delete button only for custom images */}
+                 {activeTab === 'custom' && (
                    <button 
-                     onClick={() => removeCustomImage(safeIndex)}
+                     onClick={(e) => { e.stopPropagation(); removeCustomImage(safeIndex); }}
                      className="absolute top-2 right-2 z-10 bg-red-500/80 hover:bg-red-500 text-white p-1.5 rounded-full opacity-0 group-hover/item:opacity-100 transition-opacity"
                      title="移除图片"
                    >
                      <X className="w-4 h-4" />
                    </button>
                  )}
+                 {/* Zoom hint */}
+                 <div className="absolute bottom-2 right-2 z-10 bg-black/40 text-white p-1.5 rounded-full opacity-0 group-hover/item:opacity-70 transition-opacity pointer-events-none">
+                   <ZoomIn className="w-4 h-4" />
+                 </div>
               </div>
 
-             {allImages.length > 1 && (
+             {displayImages.length > 1 && (
                <>
                  <button
-                   onClick={() => setCurrentIndex((prev) => (prev > 0 ? prev - 1 : allImages.length - 1))}
+                   onClick={() => setCurrentIndex((prev) => (prev > 0 ? prev - 1 : displayImages.length - 1))}
                    className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/30 hover:bg-black/50 text-white opacity-0 group-hover:opacity-100 transition-all backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
                    aria-label="Previous image"
                  >
                    <ChevronLeft className="w-6 h-6 md:w-8 md:h-8" />
                  </button>
                  <button
-                    onClick={() => setCurrentIndex((prev) => (prev < allImages.length - 1 ? prev + 1 : 0))}
+                    onClick={() => setCurrentIndex((prev) => (prev < displayImages.length - 1 ? prev + 1 : 0))}
                     className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/30 hover:bg-black/50 text-white opacity-0 group-hover:opacity-100 transition-all backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
                     aria-label="Next image"
                  >
                    <ChevronRight className="w-6 h-6 md:w-8 md:h-8" />
                  </button>
                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 md:gap-2 max-w-[80%] overflow-x-auto no-scrollbar scroll-smooth bg-black/20 px-3 md:px-4 py-1.5 md:py-2 rounded-full backdrop-blur-sm">
-                   {allImages.map((_, idx) => (
+                   {displayImages.map((_, idx) => (
                      <button
                        key={idx}
                        onClick={() => setCurrentIndex(idx)}
@@ -154,8 +217,17 @@ export const StageImage: React.FC<{ stage: ParasiteStage }> = ({ stage }) => {
         ) : (
           <div className="flex flex-col items-center justify-center text-gray-400 p-6 text-center">
             <ImageOff className="w-12 h-12 mb-3 opacity-50" />
-            <span className="text-base font-medium text-gray-500 mb-1">暂缺标准高清特写图</span>
-            <span className="text-sm mt-1 text-gray-400 leading-relaxed max-w-sm">为保证医学影像的绝对严谨与正确性，已将不符合或模糊的网传图片移除。目前在开源图库中未能检索到该寄生虫病理结构极高清晰度的镜下图片，您可以点击右上角上传本地图片进行补充。</span>
+            {activeTab === 'custom' ? (
+              <>
+                <span className="text-base font-medium text-gray-500 mb-1">暂无自定义图片</span>
+                <span className="text-sm mt-1 text-gray-400 leading-relaxed max-w-sm">点击右上角"上传自定义图片"按钮添加您的本地图片。</span>
+              </>
+            ) : (
+              <>
+                <span className="text-base font-medium text-gray-500 mb-1">暂缺标准高清特写图</span>
+                <span className="text-sm mt-1 text-gray-400 leading-relaxed max-w-sm">为保证医学影像的绝对严谨与正确性，已将不符合或模糊的网传图片移除。目前在开源图库中未能检索到该寄生虫病理结构极高清晰度的镜下图片，您可以点击右上角上传本地图片进行补充。</span>
+              </>
+            )}
           </div>
         )}
       </div>
@@ -170,6 +242,64 @@ export const StageImage: React.FC<{ stage: ParasiteStage }> = ({ stage }) => {
            <p className="text-sm md:text-base text-amber-900 leading-relaxed font-medium">{stage.keyPoints}</p>
         </div>
       </div>
+
+      {/* Lightbox overlay */}
+      <AnimatePresence>
+        {lightboxOpen && displayImages.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center"
+            onClick={() => setLightboxOpen(false)}
+          >
+            {/* Close button */}
+            <button
+              onClick={() => setLightboxOpen(false)}
+              className="absolute top-4 right-4 z-50 text-white/80 hover:text-white p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            {/* Counter */}
+            <div className="absolute top-4 left-1/2 -translate-x-1/2 text-white/70 text-sm font-medium bg-white/10 px-3 py-1 rounded-full backdrop-blur-sm">
+              {safeIndex + 1} / {displayImages.length}
+            </div>
+
+            {/* Main image */}
+            <motion.img
+              key={`lightbox-${activeTab}-${safeIndex}`}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.15 }}
+              src={displayImages[safeIndex]}
+              alt={stage.name}
+              className="max-w-[90vw] max-h-[85vh] object-contain select-none"
+              onClick={(e) => e.stopPropagation()}
+            />
+
+            {/* Prev/Next */}
+            {displayImages.length > 1 && (
+              <>
+                <button
+                  onClick={(e) => { e.stopPropagation(); setCurrentIndex((prev) => (prev > 0 ? prev - 1 : displayImages.length - 1)); }}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+                >
+                  <ChevronLeft className="w-8 h-8" />
+                </button>
+                <button
+                  onClick={(e) => { e.stopPropagation(); setCurrentIndex((prev) => (prev < displayImages.length - 1 ? prev + 1 : 0)); }}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+                >
+                  <ChevronRight className="w-8 h-8" />
+                </button>
+              </>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

@@ -6,3 +6,10 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Local development files and raw assets
+/local_development/
+.clinerules
+.cursorrules
+.windsurfrules
+desktop.ini

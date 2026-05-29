@@ -633,7 +633,6 @@ export const parasiteData: Parasite[] = [
         "name": "40. 十二指肠钩虫雄虫交合伞",
         "searchTerm": "Ancylostoma duodenale bursa",
         "imageUrls": [
-          "/custom_images/交合伞.emf",
           "/custom_images/十二指肠钩口线虫和美洲板口线虫交合伞.jpg"
         ],
         "morphology": "雄虫尾端向腹面呈伞状膨大，形成膜质交合伞。内有肋状的肌纤维支撑。最关键的特征是其背辐肋：自基部伸出后，一直到远端才分为两支，且每支的末端又再分为三小支。",

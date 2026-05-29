@@ -220,7 +220,7 @@ export default function App() {
           <div className="flex items-center gap-2">
             <Microscope className="w-6 h-6 text-teal-600" />
             <h1 className="text-lg font-bold tracking-tight text-gray-900 hidden sm:block">
-              医学寄生虫学<span className="text-teal-600">实验识图系统</span>
+              WMU<span className="text-teal-600">寄生虫</span>
             </h1>
           </div>
 

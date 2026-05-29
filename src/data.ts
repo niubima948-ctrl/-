@@ -290,8 +290,7 @@ export const parasiteData: Parasite[] = [
         "searchTerm": "Paragonimus metacercaria",
         "imageUrls": [
           "/custom_images/卫氏并殖吸虫囊蚴1.jpg",
-          "/custom_images/卫氏并殖吸虫囊蚴2.jpg",
-          "/custom_images/卫氏并殖吸虫第二中间宿主.jpg"
+          "/custom_images/卫氏并殖吸虫囊蚴2.jpg"
         ],
         "morphology": "呈近圆球形，外被两层明晰囊膜。内部囊内包裹着蜷曲的幼虫。其特征性标识是体内存在一形似黑十字或星芒状的排泄囊，内含黑色排泄物颗粒。",
         "keyPoints": "具有双层囊壁的圆晶球体；内含的幼虫体中央有一异常抢眼的暗黑色“星（十）字形”排泄大囊。"

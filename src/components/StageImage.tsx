@@ -234,11 +234,11 @@ export const StageImage: React.FC<{ stage: ParasiteStage }> = ({ stage }) => {
       
       <div className="space-y-4 md:space-y-5 mt-2">
         <div className="bg-blue-50/50 p-5 md:p-6 rounded-xl">
-           <h5 className="text-base font-bold text-blue-800 mb-2">🔍 镜下形态提取：</h5>
+           <h5 className="text-base font-bold text-blue-800 mb-2">🔍 镜下形态：</h5>
            <p className="text-sm md:text-base text-gray-700 leading-relaxed">{stage.morphology}</p>
         </div>
         <div className="bg-amber-50 p-5 md:p-6 rounded-xl border border-amber-100/50">
-           <h5 className="text-base font-bold text-amber-800 mb-2">🚨 核心考点速记：</h5>
+           <h5 className="text-base font-bold text-amber-800 mb-2">🚨 {stage.keyPointTitle || '易混辨析'}：</h5>
            <p className="text-sm md:text-base text-amber-900 leading-relaxed font-medium">{stage.keyPoints}</p>
         </div>
       </div>

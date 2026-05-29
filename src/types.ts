@@ -6,6 +6,7 @@ export interface ParasiteStage {
   imageUrls: string[];
   morphology: string;
   keyPoints: string;
+  keyPointTitle?: string;
 }
 
 export interface Parasite {

@@ -75,6 +75,53 @@ export default function App() {
   const [activeCategory, setActiveCategory] = useState<Category | '全部'>('全部');
   const [searchQuery, setSearchQuery] = useState('');
 
+  // Scroll hiding header states
+  const [showHeader, setShowHeader] = useState(true);
+  const lastScrollY = useRef(0);
+  const isProgrammaticScroll = useRef(false);
+  const programmaticScrollTimeout = useRef<any>(null);
+
+  // Scroll listener to hide/show header
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // Always show at the very top of the page
+      if (currentScrollY <= 10) {
+        setShowHeader(true);
+        lastScrollY.current = currentScrollY;
+        return;
+      }
+
+      // If it is a programmatic scroll (from tabs/dropdowns), keep header visible
+      if (isProgrammaticScroll.current) {
+        lastScrollY.current = currentScrollY;
+        return;
+      }
+
+      // Ignore minor scroll shifts
+      if (Math.abs(currentScrollY - lastScrollY.current) < 8) {
+        return;
+      }
+
+      if (currentScrollY > lastScrollY.current) {
+        // Scroll down -> hide header
+        setShowHeader(false);
+      } else {
+        // Scroll up -> show header
+        setShowHeader(true);
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (programmaticScrollTimeout.current) clearTimeout(programmaticScrollTimeout.current);
+    };
+  }, []);
+
   // Exam States
   const [isExamMode, setIsExamMode] = useState(false);
   const [examState, setExamState] = useState<ExamState>('start');
@@ -94,6 +141,13 @@ export default function App() {
 
   const handleSpeciesClick = (category: Category, parasiteId: string) => {
     setActiveCategory(category);
+    setShowHeader(true);
+    isProgrammaticScroll.current = true;
+    if (programmaticScrollTimeout.current) clearTimeout(programmaticScrollTimeout.current);
+    programmaticScrollTimeout.current = setTimeout(() => {
+      isProgrammaticScroll.current = false;
+    }, 1000);
+
     setTimeout(() => {
       const element = document.getElementById(parasiteId);
       if (element) {
@@ -159,7 +213,9 @@ export default function App() {
   return (
     <div className="min-h-screen bg-gray-50 font-sans text-gray-900 selection:bg-teal-200">
       {/* Header */}
-      <header className="sticky top-0 z-40 w-full backdrop-blur-md bg-white/80 border-b border-gray-200 shadow-sm">
+      <header className={`sticky top-0 z-40 w-full backdrop-blur-md bg-white/80 border-b border-gray-200 shadow-sm transition-transform duration-300 ${
+        showHeader ? 'translate-y-0' : '-translate-y-full'
+      }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Microscope className="w-6 h-6 text-teal-600" />
@@ -225,6 +281,12 @@ export default function App() {
                     <button
                       onClick={() => {
                         setActiveCategory(cat);
+                        setShowHeader(true);
+                        isProgrammaticScroll.current = true;
+                        if (programmaticScrollTimeout.current) clearTimeout(programmaticScrollTimeout.current);
+                        programmaticScrollTimeout.current = setTimeout(() => {
+                          isProgrammaticScroll.current = false;
+                        }, 1000);
                         window.scrollTo({ top: 0, behavior: 'smooth' });
                       }}
                       className={`whitespace-nowrap px-4 py-1.5 rounded-full text-sm font-medium transition-colors cursor-pointer ${

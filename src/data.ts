@@ -568,7 +568,10 @@ export const parasiteData: Parasite[] = [
         "name": "31. 牛带绦虫囊尾蚴",
         "englishName": "Taenia saginata cysticercus",
         "searchTerm": "Taenia saginata cysticercus",
-        "imageUrls": [],
+        "imageUrls": [
+          "/custom_images/img_179.png",
+          "/custom_images/img_180.png"
+        ],
         "morphology": "1. 呈黄豆粒大小的半透明椭圆形囊泡。\n2. 囊内充满了囊液，并同样向内反折包裹着一个未成熟的头节。\n3. 该内卷的头节仅有4个吸盘，完全缺失顶突和小钩结构。",
         "keyPoints": "1. 猪囊尾蚴：头节具顶突和小钩。\n2. 牛囊尾蚴：头节无顶突和小钩，且极少在人体内寄生发育。",
         "keyPointTitle": "易混辨析"
@@ -710,7 +713,8 @@ export const parasiteData: Parasite[] = [
         "englishName": "Ancylostoma duodenale male copulatory bursa",
         "searchTerm": "Ancylostoma duodenale bursa",
         "imageUrls": [
-          "/custom_images/img_145.jpg"
+          "/custom_images/img_145.jpg",
+          "/custom_images/img_178.jpg"
         ],
         "morphology": "1. 雄虫尾端向腹面膨大呈伞状，称为膜质交合伞，内有肌质辐肋支撑。\n2. 其背辐肋（dorsal ray）自基部发出后，直到远端才分叉为两支。\n3. 分叉后的每一支末端又再分为三个小分支。",
         "keyPoints": "1. 美洲钩虫交合伞：背辐肋早分叉，每支末端两小梢。\n2. 十二指肠钩虫交合伞：背辐肋远端分叉，每支末端三个小分支（口诀：远分叉，三小梢）。",
@@ -743,7 +747,10 @@ export const parasiteData: Parasite[] = [
         "name": "41. 美洲钩虫雄虫交合伞",
         "englishName": "Necator americanus male copulatory bursa",
         "searchTerm": "Necator americanus bursa",
-        "imageUrls": [],
+        "imageUrls": [
+          "/custom_images/img_181.jpg",
+          "/custom_images/img_182.jpg"
+        ],
         "morphology": "1. 雄虫尾端交合伞稍显狭长。\n2. 背辐肋在基部极早期即分叉为两支主干向远端延伸。\n3. 分叉后的每支末端各自再分为两个小分支。",
         "keyPoints": "1. 十二指肠钩虫交合伞：背辐肋远分叉，末端三小梢。\n2. 美洲钩虫交合伞：背辐肋在基部极早期分叉，每支末端各有两个小分支（口诀：早分叉，两小梢）。",
         "keyPointTitle": "易混辨析"
@@ -836,7 +843,6 @@ export const parasiteData: Parasite[] = [
         "englishName": "Male Trichuris trichiura adult",
         "searchTerm": "Trichuris trichiura male",
         "imageUrls": [
-          "/custom_images/img_168.jpg",
           "/custom_images/img_169.jpg",
           "/custom_images/img_170.jpg",
           "/custom_images/img_171.jpg"

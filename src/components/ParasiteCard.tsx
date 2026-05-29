@@ -4,7 +4,7 @@ import { StageImage } from './StageImage';
 
 export const ParasiteCard: React.FC<{ parasite: Parasite }> = ({ parasite }) => {
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-8 scroll-mt-6" id={parasite.id}>
+    <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-8 scroll-mt-28" id={parasite.id}>
       <div className="border-b border-gray-100 bg-gradient-to-r from-teal-50 to-white px-6 py-5">
         <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-y-2">
             <h3 className="text-2xl font-bold text-gray-900 tracking-tight">

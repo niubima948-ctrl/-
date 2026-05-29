@@ -18,4 +18,4 @@ export interface Parasite {
   stages: ParasiteStage[];
 }
 
-export type Category = '医学原虫' | '医学吸虫' | '医学绦虫' | '医学线虫' | '医学节肢动物';
+export type Category = '医学原虫' | '医学吸虫' | '医学绦虫' | '医学线虫';

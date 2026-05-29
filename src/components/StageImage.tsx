@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { ParasiteStage } from '../types';
 import { Loader2, ImageOff, Upload, X, ChevronLeft, ChevronRight, ZoomIn } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -38,6 +39,45 @@ export const StageImage: React.FC<{ stage: ParasiteStage }> = ({ stage }) => {
   const [activeTab, setActiveTab] = useState<ImageTab>('original');
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Swipe gesture support on mobile touch screens
+  const touchStartX = useRef<number | null>(null);
+  const touchEndX = useRef<number | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.targetTouches[0].clientX;
+    touchEndX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return;
+    const diffX = touchStartX.current - touchEndX.current;
+    const minSwipeDistance = 50; // Threshold distance in pixels
+
+    if (diffX > minSwipeDistance) {
+      // Swiped Left -> Show next image
+      setCurrentIndex((prev) => (prev < displayImages.length - 1 ? prev + 1 : 0));
+    } else if (diffX < -minSwipeDistance) {
+      // Swiped Right -> Show prev image
+      setCurrentIndex((prev) => (prev > 0 ? prev - 1 : displayImages.length - 1));
+    }
+
+    // Reset touch refs
+    touchStartX.current = null;
+    touchEndX.current = null;
+  };
+
+  // Lightbox zoom level state (1x to 4x)
+  const [zoom, setZoom] = useState(1);
+
+  // Reset zoom when image or tab changes, or lightbox toggles
+  useEffect(() => {
+    setZoom(1);
+  }, [currentIndex, activeTab, lightboxOpen]);
 
   useEffect(() => {
     try {
@@ -178,7 +218,13 @@ export const StageImage: React.FC<{ stage: ParasiteStage }> = ({ stage }) => {
       <div className="w-full h-80 md:h-[400px] lg:h-[450px] bg-gray-50 rounded-lg overflow-hidden relative flex flex-row items-center justify-center group flex-shrink-0 border border-gray-100 p-2 gap-2">
         {displayImages.length > 0 ? (
           <>
-             <div className="w-full h-full bg-black/5 rounded flex items-center justify-center overflow-hidden relative group/item cursor-zoom-in" onClick={() => setLightboxOpen(true)}>
+             <div 
+               className="w-full h-full bg-black/5 rounded flex items-center justify-center overflow-hidden relative group/item cursor-zoom-in" 
+               onClick={() => setLightboxOpen(true)}
+               onTouchStart={handleTouchStart}
+               onTouchMove={handleTouchMove}
+               onTouchEnd={handleTouchEnd}
+             >
                  <AnimatePresence mode="popLayout">
                    <motion.img
                      key={`${activeTab}-${safeIndex}`}
@@ -270,62 +316,97 @@ export const StageImage: React.FC<{ stage: ParasiteStage }> = ({ stage }) => {
       </div>
 
       {/* Lightbox overlay */}
-      <AnimatePresence>
-        {lightboxOpen && displayImages.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center"
-            onClick={() => setLightboxOpen(false)}
-          >
-            {/* Close button */}
-            <button
+      {createPortal(
+        <AnimatePresence>
+          {lightboxOpen && displayImages.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 z-50 bg-black/90 overflow-auto flex"
               onClick={() => setLightboxOpen(false)}
-              className="absolute top-4 right-4 z-50 text-white/80 hover:text-white p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
             >
-              <X className="w-6 h-6" />
-            </button>
+              {/* Close button */}
+              <button
+                onClick={() => setLightboxOpen(false)}
+                className="absolute top-4 right-4 z-50 text-white/80 hover:text-white p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors cursor-pointer"
+              >
+                <X className="w-6 h-6" />
+              </button>
 
-            {/* Counter */}
-            <div className="absolute top-4 left-1/2 -translate-x-1/2 text-white/70 text-sm font-medium bg-white/10 px-3 py-1 rounded-full backdrop-blur-sm">
-              {safeIndex + 1} / {displayImages.length}
-            </div>
+              {/* Counter */}
+              <div className="absolute top-4 left-1/2 -translate-x-1/2 text-white/70 text-sm font-medium bg-white/10 px-3 py-1 rounded-full backdrop-blur-sm z-50 select-none">
+                {safeIndex + 1} / {displayImages.length}
+              </div>
 
-            {/* Main image */}
-            <motion.img
-              key={`lightbox-${activeTab}-${safeIndex}`}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.15 }}
-              src={displayImages[safeIndex]}
-              alt={stage.name}
-              className="max-w-[90vw] max-h-[85vh] object-contain select-none"
-              onClick={(e) => e.stopPropagation()}
-            />
+              {/* Main image */}
+              <motion.img
+                key={`lightbox-${activeTab}-${safeIndex}`}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.15 }}
+                src={displayImages[safeIndex]}
+                alt={stage.name}
+                className="object-contain select-none transition-all duration-100 ease-out shrink-0"
+                style={{
+                  margin: 'auto',
+                  width: `${90 * zoom}vw`,
+                  height: `${85 * zoom}vh`,
+                  cursor: zoom > 1 ? 'grab' : 'zoom-in',
+                }}
+                onClick={(e) => e.stopPropagation()}
+              />
 
-            {/* Prev/Next */}
-            {displayImages.length > 1 && (
-              <>
+              {/* Zoom Slider Control */}
+              <div 
+                className="absolute bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 text-white select-none shadow-lg"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <span className="text-xs font-semibold w-12 text-right">{Math.round(zoom * 100)}%</span>
+                <input
+                  type="range"
+                  min="1"
+                  max="4"
+                  step="0.1"
+                  value={zoom}
+                  onChange={(e) => setZoom(parseFloat(e.target.value))}
+                  className="w-32 h-1 bg-white/20 rounded-lg appearance-none cursor-pointer accent-teal-500"
+                />
                 <button
-                  onClick={(e) => { e.stopPropagation(); setCurrentIndex((prev) => (prev > 0 ? prev - 1 : displayImages.length - 1)); }}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+                  onClick={() => setZoom(1)}
+                  className="text-[10px] bg-white/15 hover:bg-white/25 px-2 py-0.5 rounded-md font-bold transition-colors cursor-pointer"
                 >
-                  <ChevronLeft className="w-8 h-8" />
+                  重置
                 </button>
-                <button
-                  onClick={(e) => { e.stopPropagation(); setCurrentIndex((prev) => (prev < displayImages.length - 1 ? prev + 1 : 0)); }}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
-                >
-                  <ChevronRight className="w-8 h-8" />
-                </button>
-              </>
-            )}
-          </motion.div>
-        )}
-      </AnimatePresence>
+              </div>
+
+              {/* Prev/Next */}
+              {displayImages.length > 1 && (
+                <>
+                  <button
+                    onClick={(e) => { e.stopPropagation(); setCurrentIndex((prev) => (prev > 0 ? prev - 1 : displayImages.length - 1)); }}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer z-50 animate-fade-in-up"
+                  >
+                    <ChevronLeft className="w-8 h-8" />
+                  </button>
+                  <button
+                    onClick={(e) => { e.stopPropagation(); setCurrentIndex((prev) => (prev < displayImages.length - 1 ? prev + 1 : 0)); }}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer z-50 animate-fade-in-up"
+                  >
+                    <ChevronRight className="w-8 h-8" />
+                  </button>
+                </>
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </div>
   );
 }

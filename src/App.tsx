@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import { parasiteData } from './data';
 import { Category } from './types';
 import { ParasiteCard } from './components/ParasiteCard';
